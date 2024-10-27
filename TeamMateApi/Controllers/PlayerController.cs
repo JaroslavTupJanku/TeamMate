@@ -26,7 +26,11 @@ namespace TeamMateApi.Controllers
         public async Task<ActionResult<PlayerDTO>> GetPlayerById(int id)
         {
             var player = await playerManager.GetPlayerByIdAsync(id);
-            if (player == null) return NotFound();
+            if (player == null)
+            {
+                return NotFound();
+            }
+
             return Ok(player);
         }
 

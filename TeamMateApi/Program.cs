@@ -1,7 +1,9 @@
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
+using TeamMateApi.Data;
 using TeamMateApi.Data.Repositories;
 using TeamMateApi.Models;
+using TeamMateApi.Models.Managers;
 using TeamMateServer.Data;
 using TeamMateServer.Data.Entities;
 using TeamMateServer.Data.Repositories;
@@ -11,9 +13,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
 builder.Services.AddAutoMapper(typeof(AutomapperConfigurationProfile));
 builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection("MongoDB"));
+builder.Services.AddScoped<PlayerManager>();
+builder.Services.AddScoped<TeamManager>();
+
 builder.Services.AddSingleton<IMongoClient, MongoClient>(sp =>
 {
     var settings = sp.GetRequiredService<IOptions<MongoDBSettings>>().Value;
@@ -36,9 +40,21 @@ builder.Services.AddScoped<IRepository<TeamEntity>, TeamRepository>(sp =>
     return new TeamRepository(settings.DatabaseName, mongoClient);
 });
 
+builder.Services.AddTransient(sp =>
+{
+    var settings = sp.GetRequiredService<IOptions<MongoDBSettings>>().Value;
+    var mongoClient = sp.GetRequiredService<IMongoClient>();
+    return new MongoDBInitializer(mongoClient, settings.DatabaseName);
+});
 
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var initializer = scope.ServiceProvider.GetRequiredService<MongoDBInitializer>();
+    await initializer.InitializeDatabaseAsync();
+}
 
 if (app.Environment.IsDevelopment())
 {

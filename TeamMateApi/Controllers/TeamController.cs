@@ -8,46 +8,65 @@ namespace TeamMateApi.Controllers
     [Route("api/[controller]")]
     public class TeamController : ControllerBase
     {
-        private readonly TeamManager _teamManager;
+        private readonly TeamManager teamManager;
 
         public TeamController(TeamManager teamManager)
         {
-            _teamManager = teamManager;
+            this.teamManager = teamManager;
         }
 
         [HttpGet]
         public async Task<ActionResult<List<TeamDTO>>> GetAllTeams()
         {
-            var teams = await _teamManager.GetAllTeamsAsync();
-            return Ok(teams);
+            var teams = await teamManager.GetAllTeamsAsync();
+            return Ok(teams); 
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<TeamDTO>> GetTeamById(int id)
         {
-            var team = await _teamManager.GetTeamByIdAsync(id);
-            if (team == null) return NotFound();
-            return Ok(team);
+            var team = await teamManager.GetTeamByIdAsync(id);
+            return team == null ? NotFound() : Ok(team);    
         }
 
         [HttpPost]
         public async Task<ActionResult> CreateTeam([FromBody] TeamDTO teamDto)
         {
-            await _teamManager.CreateTeamAsync(teamDto);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState); 
+            }
+
+            await teamManager.CreateTeamAsync(teamDto);
             return CreatedAtAction(nameof(GetTeamById), new { id = teamDto.Id }, teamDto);
         }
 
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateTeam(int id, [FromBody] TeamDTO teamDto)
         {
-            await _teamManager.UpdateTeamAsync(id, teamDto);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (await teamManager.GetTeamByIdAsync(id) == null)
+            {
+                return NotFound();
+            }
+
+            await teamManager.UpdateTeamAsync(id, teamDto);
             return NoContent();
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteTeam(int id)
         {
-            await _teamManager.DeleteTeamAsync(id);
+            if (await teamManager.GetTeamByIdAsync(id) == null)
+            {
+                return NotFound();
+            }
+
+            await teamManager.DeleteTeamAsync(id);
             return NoContent();
         }
     }

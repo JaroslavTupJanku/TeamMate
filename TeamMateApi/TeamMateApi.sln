@@ -5,6 +5,8 @@ VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeamMateApi", "TeamMateApi.csproj", "{1997528A-D10F-4E6A-86BD-95CD5A48379C}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeamMateApi.Data", "..\TeamMateApi.Data\TeamMateApi.Data.csproj", "{82985727-BE8A-4E1E-9388-0CC9B3D84880}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{1997528A-D10F-4E6A-86BD-95CD5A48379C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1997528A-D10F-4E6A-86BD-95CD5A48379C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1997528A-D10F-4E6A-86BD-95CD5A48379C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82985727-BE8A-4E1E-9388-0CC9B3D84880}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82985727-BE8A-4E1E-9388-0CC9B3D84880}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82985727-BE8A-4E1E-9388-0CC9B3D84880}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82985727-BE8A-4E1E-9388-0CC9B3D84880}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

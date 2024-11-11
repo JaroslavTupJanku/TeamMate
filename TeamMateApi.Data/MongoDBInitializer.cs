@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
+using TeamMateApi.Core.Enums;
 using TeamMateServer.Data.Entities;
 
 namespace TeamMateApi.Data
@@ -50,8 +51,8 @@ namespace TeamMateApi.Data
         {
             var players = new List<PlayerEntity>
             {
-                new() { Id = 1, Name = "John Doe", Position = "Forward", Age = 25, TeamId = 1 },
-                new() { Id = 2, Name = "Jane Smith", Position = "Goalkeeper", Age = 28, TeamId = 1 }
+                new() { Id = 1, Name = "John", Surname="Doe", Position = Position.AttackingMidfielder, Age = 25, TeamId = 1 },
+                new() { Id = 2, Name = "Jane", Surname="Smith", Position = Position.GoalKeeper, Age = 28, TeamId = 1 }
             };
 
             await playersCollection.InsertManyAsync(players);

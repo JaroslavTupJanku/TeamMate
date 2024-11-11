@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TeamMateApi.Core\TeamMateApi.Core.csproj" />
     <ProjectReference Include="..\TeamMateApi.Data\TeamMateApi.Data.csproj" />
   </ItemGroup>
 

@@ -8,8 +8,8 @@ namespace TeamMateApi.Models
     {
         public AutomapperConfigurationProfile()
         {
-            CreateMap<PlayerEntity, PlayerDTO>();
-            CreateMap<TeamEntity, TeamDTO>();
+            CreateMap<PlayerEntity, PlayerDTO>().ReverseMap();
+            CreateMap<TeamEntity, TeamDTO>().ReverseMap();
         }
     }
 }

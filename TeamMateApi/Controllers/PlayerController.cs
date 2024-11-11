@@ -25,18 +25,23 @@ namespace TeamMateApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<PlayerDTO>> GetPlayerById(int id)
         {
-            var player = await playerManager.GetPlayerByIdAsync(id);
-            if (player == null)
-            {
-                return NotFound();
-            }
+                var player = await playerManager.GetPlayerByIdAsync(id);
+                if (player == null)
+                {
+                    return NotFound();
+                }
 
-            return Ok(player);
+                return Ok(player);
         }
 
         [HttpPost]
         public async Task<ActionResult> CreatePlayer([FromBody] PlayerDTO playerDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             await playerManager.CreatePlayerAsync(playerDto);
             return CreatedAtAction(nameof(GetPlayerById), new { id = playerDto.Id }, playerDto);
         }
@@ -44,13 +49,30 @@ namespace TeamMateApi.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdatePlayer(int id, [FromBody] PlayerDTO playerDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState); 
+            }
+
+            var existingPlayer = await playerManager.GetPlayerByIdAsync(id);
+            if (existingPlayer == null)
+            {
+                return NotFound(); 
+            }
+
             await playerManager.UpdatePlayerAsync(id, playerDto);
-            return NoContent();
+            return NoContent(); 
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeletePlayer(int id)
         {
+            var player = await playerManager.GetPlayerByIdAsync(id);
+            if (player == null)
+            {
+                return NotFound(); 
+            }
+
             await playerManager.DeletePlayerAsync(id);
             return NoContent();
         }

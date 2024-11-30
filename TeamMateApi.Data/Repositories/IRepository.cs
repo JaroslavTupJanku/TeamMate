@@ -1,6 +1,4 @@
-﻿using TeamMateServer.Data.Entities;
-
-namespace TeamMateServer.Data.Repositories
+﻿namespace TeamMateServer.Data.Repositories
 {
     public interface IRepository<T> where T : class
     {
@@ -9,5 +7,7 @@ namespace TeamMateServer.Data.Repositories
         Task CreateAsync(T entity);
         Task UpdateAsync(int id, T entity);
         Task DeleteAsync(int id);
+
+        Task<List<T>> SearchAsync(string text);
     }
 }

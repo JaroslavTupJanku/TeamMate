@@ -1,16 +1,16 @@
 ﻿using AutoMapper;
-using TeamMateApi.Data.Repositories;
 using TeamMateApi.Models.DTOs;
 using TeamMateServer.Data.Entities;
+using TeamMateServer.Data.Repositories;
 
 namespace TeamMateApi.Models.Managers
 {
     public class PlayerManager
     {
-        private readonly IPlayerRepository playerRepository;
+        private readonly IRepository<PlayerEntity> playerRepository;
         private readonly IMapper mapper;
 
-        public PlayerManager(IPlayerRepository playerRepository, IMapper mapper)
+        public PlayerManager(IRepository<PlayerEntity> playerRepository, IMapper mapper)
         {
             this.playerRepository = playerRepository;
             this.mapper = mapper;

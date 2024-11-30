@@ -37,5 +37,12 @@ namespace TeamMateServer.Data.Repositories
         {
             await _teamsCollection.DeleteOneAsync(t => t.Id == id);
         }
+
+        public async Task<List<TeamEntity>> SearchAsync(string text)
+        {
+            var filter = Builders<TeamEntity>.Filter.Text(text);
+            return await _teamsCollection.Find(filter).ToListAsync();
+        }
+
     }
 }

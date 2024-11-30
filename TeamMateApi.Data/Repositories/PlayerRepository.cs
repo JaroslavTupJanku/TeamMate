@@ -1,10 +1,9 @@
 ﻿using MongoDB.Driver;
-using TeamMateApi.Data.Repositories;
 using TeamMateServer.Data.Entities;
 
 namespace TeamMateServer.Data.Repositories
 {
-    public class PlayerRepository : IPlayerRepository
+    public class PlayerRepository : IRepository<PlayerEntity>
     {
         private readonly IMongoCollection<PlayerEntity> _playersCollection;
 

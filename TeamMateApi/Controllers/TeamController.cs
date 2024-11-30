@@ -29,6 +29,24 @@ namespace TeamMateApi.Controllers
             return team == null ? NotFound() : Ok(team);    
         }
 
+        [HttpGet("search")]
+        public async Task<ActionResult<List<TeamDTO>>> SearchTeams([FromQuery] string query)
+        {
+            if (string.IsNullOrWhiteSpace(query))
+            {
+                return BadRequest("Search query cannot be empty.");
+            }
+
+            var teams = await teamManager.SearchTeamsAsync(query);
+
+            if (teams == null || teams.Count == 0)
+            {
+                return NotFound("No teams match the search query.");
+            }
+
+            return Ok(teams);
+        }
+
         [HttpPost]
         public async Task<ActionResult> CreateTeam([FromBody] TeamDTO teamDto)
         {

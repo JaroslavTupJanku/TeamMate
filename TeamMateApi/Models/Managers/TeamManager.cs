@@ -16,6 +16,12 @@ namespace TeamMateApi.Models.Managers
             _mapper = mapper;
         }
 
+        public async Task<List<TeamDTO>> SearchTeamsAsync(string query)
+        {
+            var teams = await _teamRepository.SearchAsync(query);
+            return _mapper.Map<List<TeamDTO>>(teams);
+        }
+
         public async Task<List<TeamDTO>> GetAllTeamsAsync()
         {
             var teams = await _teamRepository.GetAllAsync();

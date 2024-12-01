@@ -85,11 +85,11 @@ namespace TeamMateApi.Data
         {
             var teams = new List<TeamEntity>
             {
-                new () { Id = 1, Name = "Team A", Location = "City A", Coach = "Coach A" },
-                new () { Id = 2, Name = "Team B", Location = "City B", Coach = "Coach B" },
-                new () { Id = 3, Name = "Team C", Location = "City C", Coach = "Coach C" },
-                new () { Id = 4, Name = "Team D", Location = "City D", Coach = "Coach D" },
-                new () { Id = 5, Name = "Team E", Location = "City E", Coach = "Coach E" },
+                new () { Id = 1, Name = "Madrid", Location = "City A", Coach = "Coach A" },
+                new () { Id = 2, Name = "Mnichov", Location = "City B", Coach = "Coach B" },
+                new () { Id = 3, Name = "Manchester", Location = "City C", Coach = "Coach C" },
+                new () { Id = 4, Name = "Paris", Location = "City D", Coach = "Coach D" },
+                new () { Id = 5, Name = "Milano", Location = "City E", Coach = "Coach E" },
             };
 
             await teamsCollection.InsertManyAsync(teams);

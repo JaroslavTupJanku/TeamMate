@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using MongoDB.Bson.IO;
 using TeamMateApi.Models.DTOs;
 using TeamMateServer.Data.Entities;
+using System.Text.Json;
 using TeamMateServer.Data.Repositories;
 
 namespace TeamMateApi.Models.Managers
@@ -31,6 +33,8 @@ namespace TeamMateApi.Models.Managers
         public async Task CreatePlayerAsync(PlayerDTO playerDto)
         {
             var player = mapper.Map<PlayerEntity>(playerDto);
+            var serializedPlayer = JsonSerializer.Serialize(player);
+            System.Diagnostics.Debug.WriteLine(serializedPlayer);
             await playerRepository.CreateAsync(player);
         }
 

@@ -1,8 +1,7 @@
-using Serilog;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
+using Serilog;
 using TeamMateApi.Data;
-using TeamMateApi.Data.Repositories;
 using TeamMateApi.Models;
 using TeamMateApi.Models.Managers;
 using TeamMateServer.Data;
@@ -33,7 +32,7 @@ builder.Services.AddSingleton<IMongoClient, MongoClient>(sp =>
 });
 
 
-builder.Services.AddScoped<IPlayerRepository, PlayerRepository>(sp =>
+builder.Services.AddScoped<IRepository<PlayerEntity>, PlayerRepository>(sp =>
 {
     var settings = sp.GetRequiredService<IOptions<MongoDBSettings>>().Value;
     var mongoClient = sp.GetRequiredService<IMongoClient>();
@@ -74,6 +73,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthorization();
 
-app.MapControllers(); 
+app.MapControllers();
 
 app.Run();
